@@ -4,7 +4,7 @@ import { View } from 'react-native'
 
 import Svg, { Rect, Text, Circle } from 'react-native-svg'
 
-const ChartTooltip = ({ date, value, position }) => {
+const ChartTooltip = ({ date, value, position, isConfirmed }) => {
 	return (
 		<View>
 			<Svg>
@@ -15,7 +15,11 @@ const ChartTooltip = ({ date, value, position }) => {
 					width='100'
 					height='50'
 					rx={5}
-					fill='rgba(186, 186, 186, 0.5)'
+					fill={
+						isConfirmed
+							? 'rgba(0, 0, 255, 0.5)'
+							: 'rgba(255, 0, 0, 0.5)'
+					}
 				/>
 				<Text
 					x={position.x + 40}

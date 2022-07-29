@@ -25,10 +25,19 @@ const CovidChart = ({
 	})
 
 	const OnDataPointClick = data => {
+		const color = data
+			.getColor()
+			.substring(5)
+			.slice(0, -1)
+			.split(',')
+			.map(value => parseInt(value, 10))
+			.slice(0, -1)
+
 		const value = {
 			// eslint-disable-next-line security/detect-object-injection
 			date: covidData.fullDate[data.index],
 			value: data.value,
+			isConfirmed: color[0] === 0 && color[1] === 0 && color[2] === 255,
 		}
 
 		if (
@@ -95,6 +104,7 @@ const CovidChart = ({
 			decorator={() =>
 				TooltipData.visible ? (
 					<ChartTooltip
+						isConfirmed={TooltipData.value.isConfirmed}
 						date={TooltipData.value.date}
 						value={TooltipData.value.value}
 						position={TooltipData.position}
