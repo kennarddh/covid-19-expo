@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 
 import { registerRootComponent } from 'expo'
 import { StatusBar } from 'expo-status-bar'
-import { Text, TouchableOpacity } from 'react-native' // eslint-disable-line import/namespace
+import { Text } from 'react-native' // eslint-disable-line import/namespace
 
-import { Container } from './Styles'
+import { Container, Button, DataContainer, DataItem } from './Styles'
 
 const App = () => {
 	const [Covid19Data, SetCovid19Data] = useState({})
@@ -28,9 +28,14 @@ const App = () => {
 	return (
 		<Container>
 			<Text>Open up App.js to start working on your app!</Text>
-			<TouchableOpacity onPress={OnPress}>
-				<Text>Press Here</Text>
-			</TouchableOpacity>
+			<Button onPress={OnPress}>
+				<Text>Fetch Data</Text>
+			</Button>
+			<DataContainer>
+				<DataItem>Confirmed: {Covid19Data.confirmed || 0}</DataItem>
+				<DataItem>Recovered: {Covid19Data.recovered || 0}</DataItem>
+				<DataItem>Deaths: {Covid19Data.deaths || 0}</DataItem>
+			</DataContainer>
 			<StatusBar style='auto' />
 		</Container>
 	)
