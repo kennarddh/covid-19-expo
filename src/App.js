@@ -4,20 +4,36 @@ import { registerRootComponent } from 'expo'
 import { StatusBar } from 'expo-status-bar'
 import { Text } from 'react-native' // eslint-disable-line import/namespace
 
-import { Container, Button, DataContainer, DataItem } from './Styles'
+import {
+	Container,
+	Button,
+	DataContainer,
+	DataItem,
+	DataHeading,
+} from './Styles'
 
 const App = () => {
 	const [Covid19Data, SetCovid19Data] = useState({})
+	const [Covid19TotalData, SetCovid19TotalData] = useState({})
 
 	const FetchCovid19Data = () => {
-		fetch('https://covid19.mathdro.id/api')
+		fetch(
+			'https://mahabub81.github.io/covid-19-api/api/v1/world-summary-time-series.json'
+		)
 			.then(response => response.json())
 			.then(data => {
-				SetCovid19Data({
-					confirmed: data.confirmed.value,
-					recovered: data.recovered.value,
-					deaths: data.deaths.value,
-				})
+				SetCovid19Data(data)
+				SetCovid19TotalData(
+					data.reduce(
+						(acc, value) => {
+							acc.confirmed += value.confirmed
+							acc.deaths += value.deaths
+
+							return acc
+						},
+						{ confirmed: 0, deaths: 0 }
+					)
+				)
 			})
 	}
 
@@ -32,9 +48,11 @@ const App = () => {
 				<Text>Fetch Data</Text>
 			</Button>
 			<DataContainer>
-				<DataItem>Confirmed: {Covid19Data.confirmed || 0}</DataItem>
-				<DataItem>Recovered: {Covid19Data.recovered || 0}</DataItem>
-				<DataItem>Deaths: {Covid19Data.deaths || 0}</DataItem>
+				<DataHeading>Total</DataHeading>
+				<DataItem>
+					Confirmed: {Covid19TotalData.confirmed || 0}
+				</DataItem>
+				<DataItem>Deaths: {Covid19TotalData.deaths || 0}</DataItem>
 			</DataContainer>
 			<StatusBar style='auto' />
 		</Container>

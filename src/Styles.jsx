@@ -32,3 +32,8 @@ export const DataContainer = styled.View`
 export const DataItem = styled.Text`
 	margin: 10px 0;
 `
+
+export const DataHeading = styled(DataItem)`
+	font-size: 20px;
+	font-weight: bold;
+`
