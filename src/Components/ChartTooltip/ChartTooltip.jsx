@@ -2,12 +2,13 @@ import React from 'react'
 
 import { View } from 'react-native'
 
-import Svg, { Rect, Text } from 'react-native-svg'
+import Svg, { Rect, Text, Circle } from 'react-native-svg'
 
 const ChartTooltip = ({ date, value, position }) => {
 	return (
 		<View>
 			<Svg>
+				<Circle cx={position.x} cy={position.y} r={3} fill='green' />
 				<Rect
 					x={position.x}
 					y={position.y}
