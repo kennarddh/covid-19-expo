@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, TextInput } from 'react-native' // eslint-disable-line import/namespace
 
 import { registerRootComponent } from 'expo'
@@ -88,6 +88,10 @@ const App = () => {
 	const OnPress = () => {
 		FetchCovid19Data()
 	}
+
+	useEffect(() => {
+		FetchCovid19Data()
+	}, [])
 
 	return (
 		<Container>
