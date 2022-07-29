@@ -16,7 +16,11 @@ import {
 } from './Styles'
 
 const App = () => {
-	const [Covid19Data, SetCovid19Data] = useState([])
+	const [Covid19Data, SetCovid19Data] = useState({
+		confirmed: [],
+		deaths: [],
+	})
+
 	const [Covid19TotalData, SetCovid19TotalData] = useState({})
 
 	const FetchCovid19Data = () => {
@@ -25,19 +29,42 @@ const App = () => {
 		)
 			.then(response => response.json())
 			.then(data => {
-				SetCovid19Data(data)
-				SetCovid19TotalData(
-					data.reduce(
-						(acc, value) => {
-							acc.confirmed += value.confirmed
-							acc.deaths += value.deaths
+				const sorted = data.sort((a, b) => {
+					return new Date(a.date) - new Date(b.date)
+				}) // Sort data ascending
 
-							return acc
+				const result = sorted.reduce(
+					(acc, value) => ({
+						confirmed: [
+							...acc.confirmed,
+							value.confirmed - acc.total.confirmed,
+						],
+						deaths: [
+							...acc.deaths,
+							value.deaths - acc.total.deaths,
+						],
+						total: {
+							confirmed: value.confirmed,
+							deaths: value.deaths,
 						},
-						{ confirmed: 0, deaths: 0 }
-					)
+					}),
+					{
+						confirmed: [],
+						deaths: [],
+						total: { confirmed: 0, deaths: 0 },
+					}
+				)
+
+				SetCovid19Data({
+					confirmed: result.confirmed.slice(-30), // Get last 30 data
+					deaths: result.deaths.slice(-30), // Get last 30 data
+				})
+
+				SetCovid19TotalData(
+					sorted.slice(-1)[0] // Get last data
 				)
 			})
+			.catch(err => console.log(err))
 	}
 
 	const OnPress = () => {
@@ -50,19 +77,15 @@ const App = () => {
 			<Button onPress={OnPress}>
 				<Text>Fetch Data</Text>
 			</Button>
+			<Text>{JSON.stringify(Covid19Data.deaths)}</Text>
 			<LineChart
 				data={{
 					labels: ['January', 'February', 'March', 'April'],
 					datasets: [
 						{
-							data: [10, 2, 100, 50, 55],
+							data: Covid19Data.confirmed,
 							color: (opacity = 1) =>
 								`rgba(0, 0, 255, ${opacity})`,
-						},
-						{
-							data: [12, 20, 120, 90, 49],
-							color: (opacity = 1) =>
-								`rgba(255, 0, 0, ${opacity})`,
 						},
 					],
 				}}
