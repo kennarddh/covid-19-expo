@@ -88,13 +88,15 @@ const CovidChart = ({
 				borderRadius: 16,
 				...style,
 			}}
-			decorator={() => (
-				<ChartTooltip
-					date={TooltipData.value.date}
-					value={TooltipData.value.value}
-					position={TooltipData.position}
-				/>
-			)}
+			decorator={() =>
+				TooltipData.visible ? (
+					<ChartTooltip
+						date={TooltipData.value.date}
+						value={TooltipData.value.value}
+						position={TooltipData.position}
+					/>
+				) : null
+			}
 			onDataPointClick={OnDataPointClick}
 		/>
 	)
