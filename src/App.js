@@ -19,6 +19,7 @@ const App = () => {
 	const [Covid19Data, SetCovid19Data] = useState({
 		confirmed: [0],
 		deaths: [0],
+		date: ['No data'],
 	})
 
 	const [Covid19TotalData, SetCovid19TotalData] = useState({})
@@ -43,6 +44,7 @@ const App = () => {
 							...acc.deaths,
 							value.deaths - acc.total.deaths,
 						],
+						date: [...acc.date, value.date],
 						total: {
 							confirmed: value.confirmed,
 							deaths: value.deaths,
@@ -51,13 +53,28 @@ const App = () => {
 					{
 						confirmed: [],
 						deaths: [],
+						date: [],
 						total: { confirmed: 0, deaths: 0 },
 					}
 				)
 
+				const array = result.date.slice(-30)
+
+				const maxVal = 4
+
+				const delta = Math.floor(array.length / maxVal)
+
+				const newArray = []
+
+				for (let i = 0; i < array.length; i = i + delta) {
+					// eslint-disable-next-line security/detect-object-injection
+					newArray.push(array[i])
+				}
+
 				SetCovid19Data({
 					confirmed: result.confirmed.slice(-30), // Get last 30 data
 					deaths: result.deaths.slice(-30), // Get last 30 data
+					date: newArray, // Get last 30 data
 				})
 
 				SetCovid19TotalData(
@@ -80,7 +97,7 @@ const App = () => {
 			<TextInput value={JSON.stringify(Covid19Data)} />
 			<LineChart
 				data={{
-					labels: ['January', 'February', 'March', 'April'],
+					labels: Covid19Data?.date.slice(-4) || ['No data'],
 					datasets: [
 						{
 							data: Covid19Data?.confirmed,
