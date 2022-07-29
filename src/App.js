@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { Text, Dimensions, TextInput } from 'react-native' // eslint-disable-line import/namespace
+import { Text, TextInput } from 'react-native' // eslint-disable-line import/namespace
 
 import { registerRootComponent } from 'expo'
 
 import { StatusBar } from 'expo-status-bar'
 
-import { LineChart } from 'react-native-chart-kit'
+import CovidChart from './CovidChart/CovidChart'
 
 import {
 	Container,
@@ -95,41 +95,7 @@ const App = () => {
 				<Text>Fetch Data</Text>
 			</Button>
 			<TextInput value={JSON.stringify(Covid19Data)} />
-			<LineChart
-				data={{
-					labels: Covid19Data?.date || ['No data'],
-					datasets: [
-						{
-							data: Covid19Data?.confirmed,
-							color: (opacity = 1) =>
-								`rgba(0, 0, 255, ${opacity})`,
-						},
-						{
-							data: Covid19Data?.deaths,
-							color: (opacity = 1) =>
-								`rgba(255, 0, 0, ${opacity})`,
-						},
-					],
-					legend: ['Confirmed', 'Deaths'],
-				}}
-				width={Dimensions.get('window').width * 0.9}
-				height={220}
-				chartConfig={{
-					backgroundColor: '#d3d3d3',
-					backgroundGradientFrom: '#eff3ff',
-					backgroundGradientTo: '#efefef',
-					decimalPlaces: 2, // optional, defaults to 2dp
-					color: (opacity = 255) => `rgba(0, 0, 0, ${opacity})`,
-					style: {
-						borderRadius: 16,
-					},
-				}}
-				bezier
-				style={{
-					marginVertical: 8,
-					borderRadius: 16,
-				}}
-			/>
+			<CovidChart covidData={Covid19Data} />
 			<DataContainer>
 				<DataHeading>Total</DataHeading>
 				<DataItem>
