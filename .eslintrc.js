@@ -63,5 +63,6 @@ module.exports = {
 				jsx: 'never',
 			},
 		],
+		'import/order': ['error', { 'newlines-between': 'ignore' }],
 	},
 }
