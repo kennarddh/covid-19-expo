@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import { Dimensions } from 'react-native' // eslint-disable-line import/namespace
+import { Dimensions } from 'react-native'
 
 import { LineChart } from 'react-native-chart-kit'
+
+import ChartTooltip from '../ChartTooltip/ChartTooltip'
 
 const CovidChart = ({
 	covidData,
@@ -13,6 +15,41 @@ const CovidChart = ({
 	style,
 	windowWidthMultiplier,
 }) => {
+	const [TooltipData, SetTooltipData] = useState({
+		position: {
+			x: 0,
+			y: 0,
+		},
+		visible: false,
+		value: 0,
+	})
+
+	const OnDataPointClick = data => {
+		const value = {
+			// eslint-disable-next-line security/detect-object-injection
+			date: covidData.fullDate[data.index],
+			value: data.value,
+		}
+
+		if (TooltipData.x === data.x && TooltipData.y === data.y) {
+			SetTooltipData(tooltipData => ({
+				...tooltipData,
+				value,
+				visible: !tooltipData.visible,
+			}))
+			return
+		}
+
+		SetTooltipData({
+			position: {
+				x: data.x,
+				y: data.y,
+			},
+			value,
+			visible: true,
+		})
+	}
+
 	return (
 		<LineChart
 			data={{
@@ -51,6 +88,14 @@ const CovidChart = ({
 				borderRadius: 16,
 				...style,
 			}}
+			decorator={() => (
+				<ChartTooltip
+					date={TooltipData.value.date}
+					value={TooltipData.value.value}
+					position={TooltipData.position}
+				/>
+			)}
+			onDataPointClick={OnDataPointClick}
 		/>
 	)
 }

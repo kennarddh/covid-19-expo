@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Text, TextInput } from 'react-native' // eslint-disable-line import/namespace
+import { Text, TextInput } from 'react-native'
 
 import { registerRootComponent } from 'expo'
 
@@ -65,6 +65,7 @@ const App = () => {
 					confirmed: result.confirmed.slice(-30), // Get last 30 data
 					deaths: result.deaths.slice(-30), // Get last 30 data
 					date: GetNthElementofArray(result.date.slice(-30), 3),
+					fullDate: result.date.slice(-30),
 				})
 
 				SetCovid19TotalData(
