@@ -58,7 +58,7 @@ const App = () => {
 					}
 				)
 
-				const array = result.date.slice(-30)
+				const array = result.date.slice(-30) // Get last 30 data
 
 				const maxVal = 4
 
@@ -74,7 +74,7 @@ const App = () => {
 				SetCovid19Data({
 					confirmed: result.confirmed.slice(-30), // Get last 30 data
 					deaths: result.deaths.slice(-30), // Get last 30 data
-					date: newArray, // Get last 30 data
+					date: newArray,
 				})
 
 				SetCovid19TotalData(
