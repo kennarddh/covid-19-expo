@@ -60,7 +60,7 @@ const App = () => {
 
 				const array = result.date.slice(-30) // Get last 30 data
 
-				const maxVal = 4
+				const maxVal = 3
 
 				const delta = Math.floor(array.length / maxVal)
 
@@ -97,7 +97,7 @@ const App = () => {
 			<TextInput value={JSON.stringify(Covid19Data)} />
 			<LineChart
 				data={{
-					labels: Covid19Data?.date.slice(-4) || ['No data'],
+					labels: Covid19Data?.date || ['No data'],
 					datasets: [
 						{
 							data: Covid19Data?.confirmed,
