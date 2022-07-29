@@ -11,6 +11,7 @@ const CovidChart = ({
 	chartConfig,
 	bezier = true,
 	style,
+	windowWidthMultiplier,
 }) => {
 	return (
 		<LineChart
@@ -28,13 +29,16 @@ const CovidChart = ({
 				],
 				legend: ['Confirmed', 'Deaths'],
 			}}
-			width={width || Dimensions.get('window').width * 0.9}
+			width={
+				width ||
+				Dimensions.get('window').width * (windowWidthMultiplier || 0.9)
+			}
 			height={height || 220}
 			chartConfig={{
 				backgroundColor: '#d3d3d3',
 				backgroundGradientFrom: '#eff3ff',
 				backgroundGradientTo: '#efefef',
-				decimalPlaces: 2, // optional, defaults to 2dp
+				decimalPlaces: 0, // optional, defaults to 2dp
 				color: (opacity = 255) => `rgba(0, 0, 0, ${opacity})`,
 				style: {
 					borderRadius: 16,
