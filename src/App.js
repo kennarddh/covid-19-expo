@@ -7,6 +7,8 @@ import { StatusBar } from 'expo-status-bar'
 
 import CovidChart from './CovidChart/CovidChart'
 
+import GetNthElementofArray from './Utils/GetNthElementofArray'
+
 import {
 	Container,
 	Button,
@@ -59,23 +61,10 @@ const App = () => {
 					}
 				)
 
-				const array = result.date.slice(-30) // Get last 30 data
-
-				const maxVal = 3
-
-				const delta = Math.floor(array.length / maxVal)
-
-				const newArray = []
-
-				for (let i = 0; i < array.length; i = i + delta) {
-					// eslint-disable-next-line security/detect-object-injection
-					newArray.push(array[i])
-				}
-
 				SetCovid19Data({
 					confirmed: result.confirmed.slice(-30), // Get last 30 data
 					deaths: result.deaths.slice(-30), // Get last 30 data
-					date: newArray,
+					date: GetNthElementofArray(result.date.slice(-30), 3),
 				})
 
 				SetCovid19TotalData(
