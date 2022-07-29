@@ -10,10 +10,9 @@ module.exports = {
 	},
 	extends: [
 		'eslint:recommended',
-		'plugin:react/recommended',
+		'universe/native',
 		'plugin:import/recommended',
 		'plugin:react-hooks/recommended',
-		'plugin:json/recommended',
 		'plugin:security/recommended',
 	],
 	plugins: ['react', 'prettier', 'jsx-a11y'],
