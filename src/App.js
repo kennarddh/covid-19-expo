@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, Dimensions } from 'react-native' // eslint-disable-line import/namespace
+import { Text, Dimensions, TextInput } from 'react-native' // eslint-disable-line import/namespace
 
 import { registerRootComponent } from 'expo'
 
@@ -17,8 +17,8 @@ import {
 
 const App = () => {
 	const [Covid19Data, SetCovid19Data] = useState({
-		confirmed: [],
-		deaths: [],
+		confirmed: [0],
+		deaths: [0],
 	})
 
 	const [Covid19TotalData, SetCovid19TotalData] = useState({})
@@ -77,19 +77,25 @@ const App = () => {
 			<Button onPress={OnPress}>
 				<Text>Fetch Data</Text>
 			</Button>
-			<Text>{JSON.stringify(Covid19Data.deaths)}</Text>
+			<TextInput value={JSON.stringify(Covid19Data)} />
 			<LineChart
 				data={{
 					labels: ['January', 'February', 'March', 'April'],
 					datasets: [
 						{
-							data: Covid19Data.confirmed,
+							data: Covid19Data?.confirmed,
 							color: (opacity = 1) =>
 								`rgba(0, 0, 255, ${opacity})`,
 						},
+						{
+							data: Covid19Data?.deaths,
+							color: (opacity = 1) =>
+								`rgba(255, 0, 0, ${opacity})`,
+						},
 					],
+					legend: ['Confirmed', 'Deaths'],
 				}}
-				width={Dimensions.get('window').width * 0.8}
+				width={Dimensions.get('window').width * 0.9}
 				height={220}
 				chartConfig={{
 					backgroundColor: '#d3d3d3',
