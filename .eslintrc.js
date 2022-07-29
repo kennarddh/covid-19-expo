@@ -64,5 +64,6 @@ module.exports = {
 			},
 		],
 		'import/order': ['error', { 'newlines-between': 'ignore' }],
+		'import/namespace': 'off',
 	},
 }
