@@ -136,6 +136,9 @@ const App = () => {
 					Confirmed: {Covid19TotalData.confirmed || 0}
 				</DataItem>
 				<DataItem>Deaths: {Covid19TotalData.deaths || 0}</DataItem>
+				<DataItem>
+					Last Updated At: {Covid19TotalData.date || '0000-00-00'}
+				</DataItem>
 			</DataContainer>
 			<StatusBar style='auto' />
 		</Container>
