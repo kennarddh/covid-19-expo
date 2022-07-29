@@ -31,7 +31,10 @@ const CovidChart = ({
 			value: data.value,
 		}
 
-		if (TooltipData.x === data.x && TooltipData.y === data.y) {
+		if (
+			TooltipData.position.x === data.x &&
+			TooltipData.position.y === data.y
+		) {
 			SetTooltipData(tooltipData => ({
 				...tooltipData,
 				value,
