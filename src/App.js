@@ -5,7 +5,7 @@ import { registerRootComponent } from 'expo'
 
 import { StatusBar } from 'expo-status-bar'
 
-import CovidChart from './CovidChart/CovidChart'
+import CovidChart from './Components/CovidChart/CovidChart'
 
 import GetNthElementofArray from './Utils/GetNthElementofArray'
 
