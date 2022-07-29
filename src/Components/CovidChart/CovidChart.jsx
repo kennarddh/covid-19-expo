@@ -40,6 +40,7 @@ const CovidChart = ({
 				value,
 				visible: !tooltipData.visible,
 			}))
+
 			return
 		}
 
