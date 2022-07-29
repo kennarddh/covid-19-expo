@@ -13,6 +13,7 @@ import {
 	DataContainer,
 	DataItem,
 	DataHeading,
+	Title,
 } from './Styles'
 
 const App = () => {
@@ -90,7 +91,7 @@ const App = () => {
 
 	return (
 		<Container>
-			<Text>Open up App.js to start working on your app!</Text>
+			<Title>Covid 19 - Expo</Title>
 			<Button onPress={OnPress}>
 				<Text>Fetch Data</Text>
 			</Button>

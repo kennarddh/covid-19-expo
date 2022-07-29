@@ -37,3 +37,8 @@ export const DataHeading = styled(DataItem)`
 	font-size: 20px;
 	font-weight: bold;
 `
+
+export const Title = styled.Text`
+	font-weight: bold;
+	font-size: 30px;
+`
