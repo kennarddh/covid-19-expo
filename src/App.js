@@ -75,7 +75,7 @@ const App = () => {
 			<TextInput value={JSON.stringify(Covid19Data)} />
 			<CovidChart covidData={Covid19Data} />
 			<DataContainer>
-				<DataHeading>Total</DataHeading>
+				<DataHeading>Summary</DataHeading>
 				<DataItem>
 					Confirmed: {Covid19WorldSummary.confirmed || 0}
 				</DataItem>
