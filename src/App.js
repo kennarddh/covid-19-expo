@@ -160,18 +160,20 @@ const App = () => {
 					Last Updated At: {WorldSummary.last_update || '0000-00-00'}
 				</DataItem>
 			</DataContainer>
-			<LinkToWebButton
-				button={Button}
-				url='https://github.com/mahabub81/covid-19-api'
-			>
-				<Text>Covid 19 Api Github</Text>
-			</LinkToWebButton>
-			<LinkToWebButton
-				button={Button}
-				url='https://github.com/kennarddh/covid-19-expo'
-			>
-				<Text>Github</Text>
-			</LinkToWebButton>
+			<RowContainer>
+				<LinkToWebButton
+					button={Button}
+					url='https://github.com/mahabub81/covid-19-api'
+				>
+					<Text>Covid 19 Api Github</Text>
+				</LinkToWebButton>
+				<LinkToWebButton
+					button={Button}
+					url='https://github.com/kennarddh/covid-19-expo'
+				>
+					<Text>Github</Text>
+				</LinkToWebButton>
+			</RowContainer>
 			<StatusBar style='auto' />
 		</Container>
 	)
