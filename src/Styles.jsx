@@ -1,4 +1,5 @@
 import styled from 'styled-components/native'
+import { Dimensions } from 'react-native'
 
 export const Container = styled.View`
 	flex: 1;
@@ -41,4 +42,6 @@ export const DropdownContainer = styled.View`
 	align-items: center;
 
 	flex-direction: row;
+
+	width: ${Dimensions.get('window').width}px;
 `
