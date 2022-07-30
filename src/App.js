@@ -17,6 +17,13 @@ import Covid19ApiSupportedCountries from './Constants/Covid19ApiSupportedCountri
 import States from './Constants/States'
 
 import {
+	WorldTimeSeries,
+	WorldSummary as WorldSummaryApi,
+	CountryTimeSeries,
+	CountryStateTimeSeries,
+} from './Utils/Api'
+
+import {
 	Container,
 	DataContainer,
 	DataItem,
@@ -37,10 +44,7 @@ const App = () => {
 	const [WorldSummary, SetWorldSummary] = useState({})
 
 	const FetchWorldTimeSeries = () => {
-		fetch(
-			'https://mahabub81.github.io/covid-19-api/api/v1/world-summary-time-series.json'
-		)
-			.then(response => response.json())
+		WorldTimeSeries()
 			.then(data => {
 				SetTimeSeries(FormatCovid19TimeSeriesData(data))
 			})
@@ -48,10 +52,7 @@ const App = () => {
 	}
 
 	const FetchWorldSummary = () => {
-		fetch(
-			'https://mahabub81.github.io/covid-19-api/api/v1/world-summary.json'
-		)
-			.then(response => response.json())
+		WorldSummaryApi()
 			.then(data => {
 				SetWorldSummary({
 					last_update: data.last_update,
@@ -63,10 +64,7 @@ const App = () => {
 	}
 
 	const FetchCountryTimeSeries = countryIso2 => {
-		fetch(
-			`https://mahabub81.github.io/covid-19-api/api/v1/countries/${countryIso2}.json`
-		)
-			.then(response => response.json())
+		CountryTimeSeries(countryIso2)
 			.then(data => {
 				SetTimeSeries(
 					FormatCovid19TimeSeriesData(data, {
@@ -78,10 +76,7 @@ const App = () => {
 	}
 
 	const FetchCountryStateTimeSeries = (countryIso2, state) => {
-		fetch(
-			`https://mahabub81.github.io/covid-19-api/api/v1/states/${countryIso2}/${state}.json`
-		)
-			.then(response => response.json())
+		CountryStateTimeSeries(countryIso2, state)
 			.then(data => {
 				SetTimeSeries(
 					FormatCovid19TimeSeriesData(data, {
