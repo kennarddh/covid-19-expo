@@ -110,6 +110,12 @@ const App = () => {
 			>
 				<Text>Covid 19 Api Github</Text>
 			</LinkToWebButton>
+			<LinkToWebButton
+				button={Button}
+				url='https://github.com/kennarddh/covid-19-expo'
+			>
+				<Text>Github</Text>
+			</LinkToWebButton>
 			<StatusBar style='auto' />
 		</Container>
 	)
