@@ -9,9 +9,10 @@ import CovidChart from './Components/CovidChart/CovidChart'
 
 import GetNthElementofArray from './Utils/GetNthElementofArray'
 
+import Button from './Components/Button/Button'
+
 import {
 	Container,
-	Button,
 	DataContainer,
 	DataItem,
 	DataHeading,
@@ -101,6 +102,7 @@ const App = () => {
 					Last Updated At: {Covid19TotalData.date || '0000-00-00'}
 				</DataItem>
 			</DataContainer>
+			<Text>Api </Text>
 			<StatusBar style='auto' />
 		</Container>
 	)
