@@ -148,6 +148,11 @@ const App = () => {
 					}
 					onSelect={OnSelectState}
 					defaultButtonText='State'
+					selectDropdownProps={{
+						buttonTextAfterSelection: selectedItem =>
+							selectedItem.split('-').join(' '),
+						rowTextForSelection: item => item.split('-').join(' '),
+					}}
 				/>
 			</DropdownContainer>
 			<TextInput value={JSON.stringify(TimeSeries)} />
