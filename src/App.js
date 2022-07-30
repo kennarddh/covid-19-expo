@@ -5,13 +5,15 @@ import { registerRootComponent } from 'expo'
 
 import { StatusBar } from 'expo-status-bar'
 
-import CovidChart from './Components/CovidChart/CovidChart'
+import SelectDropdown from 'react-native-select-dropdown'
 
 import FormatCovid19TimeSeriesData from './Utils/FormatCovid19TimeSeriesData'
 
+import CovidChart from './Components/CovidChart/CovidChart'
 import Button from './Components/Button/Button'
-
 import LinkToWebButton from './Components/LinkToWebButton/LinkToWebButton'
+
+import { Iso2CountryName } from './Constants/Iso2CountryName'
 
 import {
 	Container,
@@ -71,6 +73,22 @@ const App = () => {
 			<Button onPress={Fetch}>
 				<Text>Fetch Data</Text>
 			</Button>
+			<SelectDropdown
+				data={Object.values(Iso2CountryName)}
+				onSelect={(selectedItem, index) => {
+					console.log(selectedItem, index)
+				}}
+				buttonTextAfterSelection={selectedItem => selectedItem}
+				rowTextForSelection={item => item}
+				defaultButtonText='Country'
+				buttonStyle={{
+					borderRadius: 15,
+				}}
+				selectedRowStyle={{
+					backgroundColor: '#adadad',
+				}}
+				search
+			/>
 			<TextInput value={JSON.stringify(TimeSeries)} />
 			<CovidChart covidData={TimeSeries} />
 			<DataContainer>
