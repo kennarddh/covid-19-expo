@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Text, TextInput } from 'react-native'
 
 import { registerRootComponent } from 'expo'
@@ -22,32 +22,32 @@ import {
 } from './Styles'
 
 const App = () => {
-	const [Covid19Data, SetCovid19Data] = useState({
+	const [TimeSeries, SetTimeSeries] = useState({
 		confirmed: [0],
 		deaths: [0],
 		date: ['No data'],
 	})
 
-	const [Covid19WorldSummary, SetCovid19WorldSummary] = useState({})
+	const [WorldSummary, SetWorldSummary] = useState({})
 
-	const FetchCovid19WorldTimeSeries = () => {
+	const FetchWorldTimeSeries = () => {
 		fetch(
 			'https://mahabub81.github.io/covid-19-api/api/v1/world-summary-time-series.json'
 		)
 			.then(response => response.json())
 			.then(data => {
-				SetCovid19Data(FormatCovid19TimeSeriesData(data, 30, 3))
+				SetTimeSeries(FormatCovid19TimeSeriesData(data, 30, 3))
 			})
 			.catch(err => console.log(err))
 	}
 
-	const FetchCovid19WorldSummary = () => {
+	const FetchWorldSummary = () => {
 		fetch(
 			'https://mahabub81.github.io/covid-19-api/api/v1/world-summary.json'
 		)
 			.then(response => response.json())
 			.then(data => {
-				SetCovid19WorldSummary({
+				SetWorldSummary({
 					last_update: data.last_update,
 					confirmed: data.confirmed,
 					deaths: data.deaths,
@@ -56,33 +56,29 @@ const App = () => {
 			.catch(err => console.log(err))
 	}
 
-	const OnPress = () => {
-		FetchCovid19WorldTimeSeries()
-		FetchCovid19WorldSummary()
-	}
+	const Fetch = useCallback(() => {
+		FetchWorldTimeSeries()
+		FetchWorldSummary()
+	}, [])
 
 	useEffect(() => {
-		FetchCovid19WorldTimeSeries()
-		FetchCovid19WorldSummary()
-	}, [])
+		Fetch()
+	}, [Fetch])
 
 	return (
 		<Container>
 			<Title>Covid 19 - Expo</Title>
-			<Button onPress={OnPress}>
+			<Button onPress={Fetch}>
 				<Text>Fetch Data</Text>
 			</Button>
-			<TextInput value={JSON.stringify(Covid19Data)} />
-			<CovidChart covidData={Covid19Data} />
+			<TextInput value={JSON.stringify(TimeSeries)} />
+			<CovidChart covidData={TimeSeries} />
 			<DataContainer>
 				<DataHeading>Summary</DataHeading>
+				<DataItem>Confirmed: {WorldSummary.confirmed || 0}</DataItem>
+				<DataItem>Deaths: {WorldSummary.deaths || 0}</DataItem>
 				<DataItem>
-					Confirmed: {Covid19WorldSummary.confirmed || 0}
-				</DataItem>
-				<DataItem>Deaths: {Covid19WorldSummary.deaths || 0}</DataItem>
-				<DataItem>
-					Last Updated At:{' '}
-					{Covid19WorldSummary.last_update || '0000-00-00'}
+					Last Updated At: {WorldSummary.last_update || '0000-00-00'}
 				</DataItem>
 			</DataContainer>
 			<LinkToWebButton
