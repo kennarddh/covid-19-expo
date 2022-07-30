@@ -14,6 +14,7 @@ import Button from './Components/Button/Button'
 import LinkToWebButton from './Components/LinkToWebButton/LinkToWebButton'
 
 import { Iso2CountryName, CountryNameIso2 } from './Constants/Iso2CountryName'
+import Covid19ApiSupportedCountries from './Constants/Covid19ApiSupportedCountries'
 
 import {
 	Container,
@@ -75,6 +76,7 @@ const App = () => {
 
 	const OnSelectCountry = countryName => {
 		if (!Object.values(Iso2CountryName).includes(countryName)) return
+		if (Covid19ApiSupportedCountries.includes(countryName)) return
 
 		// eslint-disable-next-line security/detect-object-injection
 		const countryIso2 = CountryNameIso2[countryName]
@@ -98,7 +100,11 @@ const App = () => {
 				<Text>Fetch Data</Text>
 			</Button>
 			<SelectDropdown
-				data={Object.values(Iso2CountryName)}
+				data={Object.values(Iso2CountryName).filter(value =>
+					Covid19ApiSupportedCountries.includes(
+						CountryNameIso2[value] // eslint-disable-line security/detect-object-injection
+					)
+				)}
 				onSelect={OnSelectCountry}
 				buttonTextAfterSelection={selectedItem => selectedItem}
 				rowTextForSelection={item => item}
