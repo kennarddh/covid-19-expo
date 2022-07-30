@@ -38,7 +38,7 @@ const App = () => {
 		)
 			.then(response => response.json())
 			.then(data => {
-				SetTimeSeries(FormatCovid19TimeSeriesData(data, 30, 3))
+				SetTimeSeries(FormatCovid19TimeSeriesData(data))
 			})
 			.catch(err => console.log(err))
 	}
@@ -65,7 +65,7 @@ const App = () => {
 			.then(response => response.json())
 			.then(data => {
 				SetTimeSeries(
-					FormatCovid19TimeSeriesData(data, 30, 3, {
+					FormatCovid19TimeSeriesData(data, {
 						dateKey: 'last_updated_at',
 					})
 				)

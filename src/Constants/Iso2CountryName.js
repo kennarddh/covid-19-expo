@@ -1,6 +1,6 @@
 export const Iso2CountryName = {
 	AF: 'Afghanistan',
-	AX: 'Åland Islands',
+	: 'Åland Islands',
 	AL: 'Albania',
 	DZ: 'Algeria',
 	AS: 'American Samoa',

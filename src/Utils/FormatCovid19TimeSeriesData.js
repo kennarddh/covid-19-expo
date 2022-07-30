@@ -1,12 +1,7 @@
 import GetNthElementofArray from './GetNthElementofArray'
 
-const FormatCovid19TimeSeriesData = (
-	data,
-	numData = 30,
-	numDate = 3,
-	options = {}
-) => {
-	const { dateKey = 'date' } = options
+const FormatCovid19TimeSeriesData = (data, options = {}) => {
+	const { dateKey = 'date', numData = 30, numDate = 3 } = options
 
 	const sorted = data.sort((a, b) => {
 		return new Date(a.date) - new Date(b.date)
