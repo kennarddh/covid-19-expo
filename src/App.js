@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { Text, TextInput } from 'react-native'
+import { Dimensions, Text, TextInput } from 'react-native'
 
 import { registerRootComponent } from 'expo'
 
@@ -22,6 +22,7 @@ import {
 	DataItem,
 	DataHeading,
 	Title,
+	DropdownContainer,
 } from './Styles'
 
 const App = () => {
@@ -99,24 +100,28 @@ const App = () => {
 			<Button onPress={Fetch}>
 				<Text>Fetch Data</Text>
 			</Button>
-			<SelectDropdown
-				data={Object.values(Iso2CountryName).filter(value =>
-					Covid19ApiSupportedCountries.includes(
-						CountryNameIso2[value] // eslint-disable-line security/detect-object-injection
-					)
-				)}
-				onSelect={OnSelectCountry}
-				buttonTextAfterSelection={selectedItem => selectedItem}
-				rowTextForSelection={item => item}
-				defaultButtonText='Country'
-				buttonStyle={{
-					borderRadius: 15,
-				}}
-				selectedRowStyle={{
-					backgroundColor: '#adadad',
-				}}
-				search
-			/>
+			<DropdownContainer>
+				<SelectDropdown
+					data={Object.values(Iso2CountryName).filter(value =>
+						Covid19ApiSupportedCountries.includes(
+							CountryNameIso2[value] // eslint-disable-line security/detect-object-injection
+						)
+					)}
+					onSelect={OnSelectCountry}
+					buttonTextAfterSelection={selectedItem => selectedItem}
+					rowTextForSelection={item => item}
+					defaultButtonText='Country'
+					buttonStyle={{
+						borderRadius: 15,
+						marginHorizontal: 10,
+						width: Dimensions.get('window').width * 0.3,
+					}}
+					selectedRowStyle={{
+						backgroundColor: '#adadad',
+					}}
+					search
+				/>
+			</DropdownContainer>
 			<TextInput value={JSON.stringify(TimeSeries)} />
 			<CovidChart covidData={TimeSeries} />
 			<DataContainer>

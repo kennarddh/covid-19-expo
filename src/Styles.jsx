@@ -34,3 +34,11 @@ export const Title = styled.Text`
 	font-weight: bold;
 	font-size: 30px;
 `
+
+export const DropdownContainer = styled.View`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	flex-direction: row;
+`
