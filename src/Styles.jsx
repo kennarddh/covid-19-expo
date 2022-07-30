@@ -36,7 +36,7 @@ export const Title = styled.Text`
 	font-size: 30px;
 `
 
-export const DropdownContainer = styled.View`
+export const RowContainer = styled.View`
 	display: flex;
 	justify-content: center;
 	align-items: center;

@@ -29,7 +29,7 @@ import {
 	DataItem,
 	DataHeading,
 	Title,
-	DropdownContainer,
+	RowContainer,
 } from './Styles'
 
 const App = () => {
@@ -122,7 +122,7 @@ const App = () => {
 			<Button onPress={Fetch}>
 				<Text>Fetch Data</Text>
 			</Button>
-			<DropdownContainer>
+			<RowContainer>
 				<Select
 					data={Object.values(Iso2CountryName).filter(value =>
 						Covid19ApiSupportedCountries.includes(
@@ -149,7 +149,7 @@ const App = () => {
 						rowTextForSelection: item => item.split('-').join(' '),
 					}}
 				/>
-			</DropdownContainer>
+			</RowContainer>
 			<TextInput value={JSON.stringify(TimeSeries)} />
 			<CovidChart covidData={TimeSeries} />
 			<DataContainer>
