@@ -77,6 +77,21 @@ const App = () => {
 			.catch(err => console.log(err))
 	}
 
+	const FetchCountryStateTimeSeries = (countryIso2, state) => {
+		fetch(
+			`https://mahabub81.github.io/covid-19-api/api/v1/states/${countryIso2}/${state}.json`
+		)
+			.then(response => response.json())
+			.then(data => {
+				SetTimeSeries(
+					FormatCovid19TimeSeriesData(data, {
+						dateKey: 'last_updated_at',
+					})
+				)
+			})
+			.catch(err => console.log(err))
+	}
+
 	const OnSelectCountry = countryName => {
 		if (!Object.values(Iso2CountryName).includes(countryName)) return
 		if (Covid19ApiSupportedCountries.includes(countryName)) return
@@ -87,6 +102,14 @@ const App = () => {
 		SetSelectedCountryIso2(countryIso2)
 
 		FetchCountryTimeSeries(countryIso2)
+	}
+
+	const OnSelectState = state => {
+		if (!Object.keys(States).includes(SelectedCountryIso2)) return
+		// eslint-disable-next-line security/detect-object-injection
+		if (!States[SelectedCountryIso2].includes(state)) return
+
+		FetchCountryStateTimeSeries(SelectedCountryIso2, state)
 	}
 
 	const Fetch = useCallback(() => {
@@ -123,7 +146,7 @@ const App = () => {
 					disabled={
 						!Object.keys(States).includes(SelectedCountryIso2)
 					}
-					onSelect={OnSelectCountry}
+					onSelect={OnSelectState}
 					defaultButtonText='State'
 				/>
 			</DropdownContainer>
