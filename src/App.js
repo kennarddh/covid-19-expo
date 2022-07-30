@@ -11,6 +11,8 @@ import GetNthElementofArray from './Utils/GetNthElementofArray'
 
 import Button from './Components/Button/Button'
 
+import LinkToWebButton from './Components/LinkToWebButton/LinkToWebButton'
+
 import {
 	Container,
 	DataContainer,
@@ -102,7 +104,12 @@ const App = () => {
 					Last Updated At: {Covid19TotalData.date || '0000-00-00'}
 				</DataItem>
 			</DataContainer>
-			<Text>Api </Text>
+			<LinkToWebButton
+				button={Button}
+				url='https://github.com/mahabub81/covid-19-api'
+			>
+				<Text>Covid 19 Api Github</Text>
+			</LinkToWebButton>
 			<StatusBar style='auto' />
 		</Container>
 	)
