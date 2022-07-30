@@ -13,7 +13,7 @@ import CovidChart from './Components/CovidChart/CovidChart'
 import Button from './Components/Button/Button'
 import LinkToWebButton from './Components/LinkToWebButton/LinkToWebButton'
 
-import { Iso2CountryName } from './Constants/Iso2CountryName'
+import { Iso2CountryName, CountryNameIso2 } from './Constants/Iso2CountryName'
 
 import {
 	Container,
@@ -58,6 +58,30 @@ const App = () => {
 			.catch(err => console.log(err))
 	}
 
+	const FetchCountryTimeSeries = countryIso2 => {
+		fetch(
+			`https://mahabub81.github.io/covid-19-api/api/v1/countries/${countryIso2}.json`
+		)
+			.then(response => response.json())
+			.then(data => {
+				SetTimeSeries(
+					FormatCovid19TimeSeriesData(data, 30, 3, {
+						dateKey: 'last_updated_at',
+					})
+				)
+			})
+			.catch(err => console.log(err))
+	}
+
+	const OnSelectCountry = countryName => {
+		if (!Object.values(Iso2CountryName).includes(countryName)) return
+
+		// eslint-disable-next-line security/detect-object-injection
+		const countryIso2 = CountryNameIso2[countryName]
+
+		FetchCountryTimeSeries(countryIso2)
+	}
+
 	const Fetch = useCallback(() => {
 		FetchWorldTimeSeries()
 		FetchWorldSummary()
@@ -75,9 +99,7 @@ const App = () => {
 			</Button>
 			<SelectDropdown
 				data={Object.values(Iso2CountryName)}
-				onSelect={(selectedItem, index) => {
-					console.log(selectedItem, index)
-				}}
+				onSelect={OnSelectCountry}
 				buttonTextAfterSelection={selectedItem => selectedItem}
 				rowTextForSelection={item => item}
 				defaultButtonText='Country'

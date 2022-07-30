@@ -1,6 +1,13 @@
 import GetNthElementofArray from './GetNthElementofArray'
 
-const FormatCovid19TimeSeriesData = (data, numData = 30, numDate = 3) => {
+const FormatCovid19TimeSeriesData = (
+	data,
+	numData = 30,
+	numDate = 3,
+	options = {}
+) => {
+	const { dateKey = 'date' } = options
+
 	const sorted = data.sort((a, b) => {
 		return new Date(a.date) - new Date(b.date)
 	}) // Sort data ascending
@@ -12,7 +19,7 @@ const FormatCovid19TimeSeriesData = (data, numData = 30, numDate = 3) => {
 				value.confirmed - acc.total.confirmed,
 			],
 			deaths: [...acc.deaths, value.deaths - acc.total.deaths],
-			date: [...acc.date, value.date],
+			date: [...acc.date, value[dateKey]], // eslint-disable-line security/detect-object-injection
 			total: {
 				confirmed: value.confirmed,
 				deaths: value.deaths,
