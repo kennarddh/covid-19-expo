@@ -28,29 +28,42 @@ const App = () => {
 		date: ['No data'],
 	})
 
-	const [Covid19TotalData, SetCovid19TotalData] = useState({})
+	const [Covid19WorldSummary, SetCovid19WorldSummary] = useState({})
 
-	const FetchCovid19GlobalTimeSeries = () => {
+	const FetchCovid19WorldTimeSeries = () => {
 		fetch(
 			'https://mahabub81.github.io/covid-19-api/api/v1/world-summary-time-series.json'
 		)
 			.then(response => response.json())
 			.then(data => {
 				SetCovid19Data(FormatCovid19TimeSeriesData(data, 30, 3))
+			})
+			.catch(err => console.log(err))
+	}
 
-				// SetCovid19TotalData(
-				// 	sorted.slice(-1)[0] // Get last data
-				// )
+	const FetchCovid19WorldSummary = () => {
+		fetch(
+			'https://mahabub81.github.io/covid-19-api/api/v1/world-summary.json'
+		)
+			.then(response => response.json())
+			.then(data => {
+				SetCovid19WorldSummary({
+					last_update: data.last_update,
+					confirmed: data.confirmed,
+					deaths: data.deaths,
+				})
 			})
 			.catch(err => console.log(err))
 	}
 
 	const OnPress = () => {
-		FetchCovid19GlobalTimeSeries()
+		FetchCovid19WorldTimeSeries()
+		FetchCovid19WorldSummary()
 	}
 
 	useEffect(() => {
-		FetchCovid19GlobalTimeSeries()
+		FetchCovid19WorldTimeSeries()
+		FetchCovid19WorldSummary()
 	}, [])
 
 	return (
@@ -64,11 +77,12 @@ const App = () => {
 			<DataContainer>
 				<DataHeading>Total</DataHeading>
 				<DataItem>
-					Confirmed: {Covid19TotalData.confirmed || 0}
+					Confirmed: {Covid19WorldSummary.confirmed || 0}
 				</DataItem>
-				<DataItem>Deaths: {Covid19TotalData.deaths || 0}</DataItem>
+				<DataItem>Deaths: {Covid19WorldSummary.deaths || 0}</DataItem>
 				<DataItem>
-					Last Updated At: {Covid19TotalData.date || '0000-00-00'}
+					Last Updated At:{' '}
+					{Covid19WorldSummary.last_update || '0000-00-00'}
 				</DataItem>
 			</DataContainer>
 			<LinkToWebButton
