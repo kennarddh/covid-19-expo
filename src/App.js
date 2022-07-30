@@ -7,7 +7,7 @@ import { StatusBar } from 'expo-status-bar'
 
 import CovidChart from './Components/CovidChart/CovidChart'
 
-import GetNthElementofArray from './Utils/GetNthElementofArray'
+import FormatCovid19TimeSeriesData from './Utils/FormatCovid19TimeSeriesData'
 
 import Button from './Components/Button/Button'
 
@@ -30,60 +30,27 @@ const App = () => {
 
 	const [Covid19TotalData, SetCovid19TotalData] = useState({})
 
-	const FetchCovid19Data = () => {
+	const FetchCovid19GlobalTimeSeries = () => {
 		fetch(
 			'https://mahabub81.github.io/covid-19-api/api/v1/world-summary-time-series.json'
 		)
 			.then(response => response.json())
 			.then(data => {
-				const sorted = data.sort((a, b) => {
-					return new Date(a.date) - new Date(b.date)
-				}) // Sort data ascending
+				SetCovid19Data(FormatCovid19TimeSeriesData(data, 30, 3))
 
-				const result = sorted.reduce(
-					(acc, value) => ({
-						confirmed: [
-							...acc.confirmed,
-							value.confirmed - acc.total.confirmed,
-						],
-						deaths: [
-							...acc.deaths,
-							value.deaths - acc.total.deaths,
-						],
-						date: [...acc.date, value.date],
-						total: {
-							confirmed: value.confirmed,
-							deaths: value.deaths,
-						},
-					}),
-					{
-						confirmed: [],
-						deaths: [],
-						date: [],
-						total: { confirmed: 0, deaths: 0 },
-					}
-				)
-
-				SetCovid19Data({
-					confirmed: result.confirmed.slice(-30), // Get last 30 data
-					deaths: result.deaths.slice(-30), // Get last 30 data
-					date: GetNthElementofArray(result.date.slice(-30), 3),
-					fullDate: result.date.slice(-30),
-				})
-
-				SetCovid19TotalData(
-					sorted.slice(-1)[0] // Get last data
-				)
+				// SetCovid19TotalData(
+				// 	sorted.slice(-1)[0] // Get last data
+				// )
 			})
 			.catch(err => console.log(err))
 	}
 
 	const OnPress = () => {
-		FetchCovid19Data()
+		FetchCovid19GlobalTimeSeries()
 	}
 
 	useEffect(() => {
-		FetchCovid19Data()
+		FetchCovid19GlobalTimeSeries()
 	}, [])
 
 	return (
