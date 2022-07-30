@@ -14,6 +14,7 @@ import Select from './Components/Select/Select'
 
 import { Iso2CountryName, CountryNameIso2 } from './Constants/Iso2CountryName'
 import Covid19ApiSupportedCountries from './Constants/Covid19ApiSupportedCountries'
+import States from './Constants/States'
 
 import {
 	Container,
@@ -30,6 +31,8 @@ const App = () => {
 		deaths: [0],
 		date: ['No data'],
 	})
+
+	const [SelectedCountryIso2, SetSelectedCountryIso2] = useState('')
 
 	const [WorldSummary, SetWorldSummary] = useState({})
 
@@ -81,6 +84,8 @@ const App = () => {
 		// eslint-disable-next-line security/detect-object-injection
 		const countryIso2 = CountryNameIso2[countryName]
 
+		SetSelectedCountryIso2(countryIso2)
+
 		FetchCountryTimeSeries(countryIso2)
 	}
 
@@ -107,6 +112,19 @@ const App = () => {
 						)
 					)}
 					onSelect={OnSelectCountry}
+					defaultButtonText='Country'
+				/>
+				<Select
+					data={
+						!Object.keys(States).includes(SelectedCountryIso2)
+							? []
+							: States[SelectedCountryIso2] // eslint-disable-line security/detect-object-injection
+					}
+					disabled={
+						!Object.keys(States).includes(SelectedCountryIso2)
+					}
+					onSelect={OnSelectCountry}
+					defaultButtonText='State'
 				/>
 			</DropdownContainer>
 			<TextInput value={JSON.stringify(TimeSeries)} />
