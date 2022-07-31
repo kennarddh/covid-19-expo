@@ -161,6 +161,14 @@ const App = () => {
 						rowTextForSelection: item => item.split('-').join(' '),
 					}}
 				/>
+				<Select
+					data={['Both', 'Deaths', 'Confirmed']}
+					onSelect={OnSelectState}
+					defaultButtonText='Chart Type'
+					selectDropdownProps={{
+						defaultValueByIndex: 0,
+					}}
+				/>
 			</RowContainer>
 			<TextInput value={JSON.stringify(TimeSeries)} />
 			<CovidChart covidData={TimeSeries} />
