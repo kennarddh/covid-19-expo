@@ -65,15 +65,16 @@ const CovidChart = ({
 		})
 	}
 
+	const legend = []
+
+	if (showConfirmed) legend.push('Confirmed')
+	if (showDeaths) legend.push('Deaths')
+
 	return (
 		<LineChart
 			data={{
-				...(showConfirmed && showDeaths
-					? {
-							labels: covidData?.date || ['No data'],
-							legend: ['Confirmed', 'Deaths'],
-					  }
-					: {}),
+				labels: covidData?.date || ['No data'],
+				legend,
 				datasets: [
 					...(showConfirmed
 						? [
