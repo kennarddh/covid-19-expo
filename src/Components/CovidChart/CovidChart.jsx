@@ -14,6 +14,8 @@ const CovidChart = ({
 	bezier = true,
 	style,
 	windowWidthMultiplier,
+	showDeaths,
+	showConfirmed,
 }) => {
 	const [TooltipData, SetTooltipData] = useState({
 		position: {
@@ -66,18 +68,32 @@ const CovidChart = ({
 	return (
 		<LineChart
 			data={{
-				labels: covidData?.date || ['No data'],
+				...(showConfirmed && showDeaths
+					? {
+							labels: covidData?.date || ['No data'],
+							legend: ['Confirmed', 'Deaths'],
+					  }
+					: {}),
 				datasets: [
-					{
-						data: covidData?.confirmed,
-						color: (opacity = 1) => `rgba(0, 0, 255, ${opacity})`,
-					},
-					{
-						data: covidData?.deaths,
-						color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
-					},
+					...(showConfirmed
+						? [
+								{
+									data: covidData?.confirmed,
+									color: (opacity = 1) =>
+										`rgba(0, 0, 255, ${opacity})`,
+								},
+						  ]
+						: []),
+					...(showDeaths
+						? [
+								{
+									data: covidData?.deaths,
+									color: (opacity = 1) =>
+										`rgba(255, 0, 0, ${opacity})`,
+								},
+						  ]
+						: []),
 				],
-				legend: ['Confirmed', 'Deaths'],
 			}}
 			width={
 				width ||
