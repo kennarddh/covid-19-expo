@@ -88,6 +88,12 @@ const App = () => {
 	}
 
 	const OnSelectCountry = countryName => {
+		if (countryName === 'World') {
+			FetchWorldTimeSeries()
+
+			return
+		}
+
 		if (!Object.values(Iso2CountryName).includes(countryName)) return
 		if (Covid19ApiSupportedCountries.includes(countryName)) return
 
@@ -124,11 +130,14 @@ const App = () => {
 			</Button>
 			<RowContainer>
 				<Select
-					data={Object.values(Iso2CountryName).filter(value =>
-						Covid19ApiSupportedCountries.includes(
-							CountryNameIso2[value] // eslint-disable-line security/detect-object-injection
-						)
-					)}
+					data={[
+						'World',
+						...Object.values(Iso2CountryName).filter(value =>
+							Covid19ApiSupportedCountries.includes(
+								CountryNameIso2[value] // eslint-disable-line security/detect-object-injection
+							)
+						),
+					]}
 					onSelect={OnSelectCountry}
 					defaultButtonText='Country'
 				/>
