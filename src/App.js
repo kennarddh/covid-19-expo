@@ -40,6 +40,7 @@ const App = () => {
 	})
 
 	const [SelectedCountryIso2, SetSelectedCountryIso2] = useState('')
+	const [ChartType, SetChartType] = useState('Both')
 
 	const [WorldSummary, SetWorldSummary] = useState({})
 
@@ -113,6 +114,10 @@ const App = () => {
 		FetchCountryStateTimeSeries(SelectedCountryIso2, state)
 	}
 
+	const OnSelectChartType = type => {
+		SetChartType(type)
+	}
+
 	const Fetch = useCallback(() => {
 		FetchWorldTimeSeries()
 		FetchWorldSummary()
@@ -163,7 +168,7 @@ const App = () => {
 				/>
 				<Select
 					data={['Both', 'Deaths', 'Confirmed']}
-					onSelect={OnSelectState}
+					onSelect={OnSelectChartType}
 					defaultButtonText='Chart Type'
 					selectDropdownProps={{
 						defaultValueByIndex: 0,
