@@ -140,6 +140,9 @@ const App = () => {
 					]}
 					onSelect={OnSelectCountry}
 					defaultButtonText='Country'
+					selectDropdownProps={{
+						defaultValueByIndex: 0,
+					}}
 				/>
 				<Select
 					data={
