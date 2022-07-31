@@ -176,7 +176,13 @@ const App = () => {
 				/>
 			</RowContainer>
 			<TextInput value={JSON.stringify(TimeSeries)} />
-			<CovidChart covidData={TimeSeries} />
+			<CovidChart
+				covidData={TimeSeries}
+				showDeaths={ChartType === 'Both' || ChartType === 'Deaths'}
+				showConfirmed={
+					ChartType === 'Both' || ChartType === 'Confirmed'
+				}
+			/>
 			<DataContainer>
 				<DataHeading>Summary</DataHeading>
 				<DataItem>Confirmed: {WorldSummary.confirmed || 0}</DataItem>
