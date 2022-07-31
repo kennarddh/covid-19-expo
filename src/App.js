@@ -40,6 +40,7 @@ const App = () => {
 	})
 
 	const [SelectedCountryIso2, SetSelectedCountryIso2] = useState('')
+	const [ChartType, SetChartType] = useState('Both')
 
 	const [WorldSummary, SetWorldSummary] = useState({})
 
@@ -113,6 +114,10 @@ const App = () => {
 		FetchCountryStateTimeSeries(SelectedCountryIso2, state)
 	}
 
+	const OnSelectChartType = type => {
+		SetChartType(type)
+	}
+
 	const Fetch = useCallback(() => {
 		FetchWorldTimeSeries()
 		FetchWorldSummary()
@@ -161,9 +166,23 @@ const App = () => {
 						rowTextForSelection: item => item.split('-').join(' '),
 					}}
 				/>
+				<Select
+					data={['Both', 'Deaths', 'Confirmed']}
+					onSelect={OnSelectChartType}
+					defaultButtonText='Chart Type'
+					selectDropdownProps={{
+						defaultValueByIndex: 0,
+					}}
+				/>
 			</RowContainer>
 			<TextInput value={JSON.stringify(TimeSeries)} />
-			<CovidChart covidData={TimeSeries} />
+			<CovidChart
+				covidData={TimeSeries}
+				showDeaths={ChartType === 'Both' || ChartType === 'Deaths'}
+				showConfirmed={
+					ChartType === 'Both' || ChartType === 'Confirmed'
+				}
+			/>
 			<DataContainer>
 				<DataHeading>Summary</DataHeading>
 				<DataItem>Confirmed: {WorldSummary.confirmed || 0}</DataItem>
