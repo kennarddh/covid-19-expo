@@ -14,7 +14,7 @@ const CountryLastUpdate = () => {
 		Countries()
 			.then(data => {
 				const result = FormatCountriesNewUpdateData(data).map(item => ({
-					Population: item.population,
+					Population: item.population || 0,
 					'Country / State': item.displayName,
 					lastUpdateAt: item.lastUpdateAt,
 					'Total Deaths': item.totalDeaths,
