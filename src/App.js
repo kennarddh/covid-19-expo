@@ -1,10 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Text, TextInput, SafeAreaView, ScrollView } from 'react-native'
 
-import { registerRootComponent } from 'expo'
-
-import { StatusBar } from 'expo-status-bar'
-
 import FormatCovid19TimeSeriesData from './Utils/FormatCovid19TimeSeriesData'
 
 import CovidChart from './Components/CovidChart/CovidChart'
@@ -186,11 +182,10 @@ const App = () => {
 							<Text>Github</Text>
 						</LinkToWebButton>
 					</RowContainer>
-					<StatusBar style='auto' />
 				</Container>
 			</ScrollView>
 		</SafeAreaView>
 	)
 }
 
-export default registerRootComponent(App)
+export default App

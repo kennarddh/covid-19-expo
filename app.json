@@ -27,6 +27,6 @@
 		"web": {
 			"favicon": "./assets/favicon.png"
 		},
-		"entryPoint": "./src/App.js"
+		"entryPoint": "./src/index.js"
 	}
 }
