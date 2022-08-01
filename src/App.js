@@ -11,6 +11,7 @@ import CovidChart from './Components/CovidChart/CovidChart'
 import Button from './Components/Button/Button'
 import LinkToWebButton from './Components/LinkToWebButton/LinkToWebButton'
 import Select from './Components/Select/Select'
+import WorldSummary from './Components/WorldSummary/WorldSummary'
 
 import { Iso2CountryName, CountryNameIso2 } from './Constants/Iso2CountryName'
 import Covid19ApiSupportedCountries from './Constants/Covid19ApiSupportedCountries'
@@ -18,19 +19,11 @@ import States from './Constants/States'
 
 import {
 	WorldTimeSeries,
-	WorldSummary as WorldSummaryApi,
 	CountryTimeSeries,
 	CountryStateTimeSeries,
 } from './Utils/Api'
 
-import {
-	Container,
-	DataContainer,
-	DataItem,
-	DataHeading,
-	Title,
-	RowContainer,
-} from './Styles'
+import { Container, Title, RowContainer } from './Styles'
 
 const App = () => {
 	const [TimeSeries, SetTimeSeries] = useState({
@@ -42,24 +35,10 @@ const App = () => {
 	const [SelectedCountryIso2, SetSelectedCountryIso2] = useState('')
 	const [ChartType, SetChartType] = useState('Both')
 
-	const [WorldSummary, SetWorldSummary] = useState({})
-
 	const FetchWorldTimeSeries = () => {
 		WorldTimeSeries()
 			.then(data => {
 				SetTimeSeries(FormatCovid19TimeSeriesData(data))
-			})
-			.catch(err => console.log(err))
-	}
-
-	const FetchWorldSummary = () => {
-		WorldSummaryApi()
-			.then(data => {
-				SetWorldSummary({
-					last_update: data.last_update,
-					confirmed: data.confirmed,
-					deaths: data.deaths,
-				})
 			})
 			.catch(err => console.log(err))
 	}
@@ -120,7 +99,6 @@ const App = () => {
 
 	const Fetch = useCallback(() => {
 		FetchWorldTimeSeries()
-		FetchWorldSummary()
 	}, [])
 
 	useEffect(() => {
@@ -183,14 +161,7 @@ const App = () => {
 					ChartType === 'Both' || ChartType === 'Confirmed'
 				}
 			/>
-			<DataContainer>
-				<DataHeading>Summary</DataHeading>
-				<DataItem>Confirmed: {WorldSummary.confirmed || 0}</DataItem>
-				<DataItem>Deaths: {WorldSummary.deaths || 0}</DataItem>
-				<DataItem>
-					Last Updated At: {WorldSummary.last_update || '0000-00-00'}
-				</DataItem>
-			</DataContainer>
+			<WorldSummary />
 			<RowContainer>
 				<LinkToWebButton
 					button={Button}
