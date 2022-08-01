@@ -13,7 +13,17 @@ const CountryLastUpdate = () => {
 	const FetchCountries = () => {
 		Countries()
 			.then(data => {
-				SetData(FormatCountriesNewUpdateData(data))
+				const result = FormatCountriesNewUpdateData(data).map(item => ({
+					Population: item.population,
+					'Country / State': item.displayName,
+					lastUpdateAt: item.lastUpdateAt,
+					'Total Deaths': item.totalDeaths,
+					provinceState: item.provinceState,
+					iso2: item.iso2,
+					countryRegion: item.countryRegion,
+				}))
+
+				SetData(result)
 			})
 			.catch(err => console.log(err))
 	}
@@ -26,20 +36,20 @@ const CountryLastUpdate = () => {
 		<Container>
 			<DataTable
 				data={Data}
-				colNames={['displayName', 'population', 'totalDeaths']}
+				colNames={['Country / State', 'Population', 'Total Deaths']}
 				colSettings={[
 					{
-						name: 'displayName',
+						name: 'Country / State',
 						type: COL_TYPES.STRING,
 						width: '40%',
 					},
 					{
-						name: 'population',
+						name: 'Population',
 						type: COL_TYPES.INT,
 						width: '30%',
 					},
 					{
-						name: 'totalDeaths',
+						name: 'Total Deaths',
 						type: COL_TYPES.INT,
 						width: '30%',
 					},
