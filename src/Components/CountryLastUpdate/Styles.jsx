@@ -6,4 +6,5 @@ export const Container = styled.View`
 	background-color: #d3d3d3;
 	padding: 10px;
 	box-sizing: border-box;
+	min-height: 550px;
 `
