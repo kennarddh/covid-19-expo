@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { Text, TextInput } from 'react-native'
+import { Text, TextInput, SafeAreaView, ScrollView } from 'react-native'
 
 import { registerRootComponent } from 'expo'
 
@@ -106,78 +106,90 @@ const App = () => {
 	}, [Fetch])
 
 	return (
-		<Container>
-			<Title>Covid 19 - Expo</Title>
-			<Button onPress={Fetch}>
-				<Text>Fetch Data</Text>
-			</Button>
-			<RowContainer>
-				<Select
-					data={[
-						'World',
-						...Object.values(Iso2CountryName).filter(value =>
-							Covid19ApiSupportedCountries.includes(
-								CountryNameIso2[value] // eslint-disable-line security/detect-object-injection
-							)
-						),
-					]}
-					onSelect={OnSelectCountry}
-					defaultButtonText='Country'
-					selectDropdownProps={{
-						defaultValueByIndex: 0,
-					}}
-				/>
-				<Select
-					data={
-						!Object.keys(States).includes(SelectedCountryIso2)
-							? []
-							: States[SelectedCountryIso2] // eslint-disable-line security/detect-object-injection
-					}
-					disabled={
-						!Object.keys(States).includes(SelectedCountryIso2)
-					}
-					onSelect={OnSelectState}
-					defaultButtonText='State'
-					selectDropdownProps={{
-						buttonTextAfterSelection: selectedItem =>
-							selectedItem.split('-').join(' '),
-						rowTextForSelection: item => item.split('-').join(' '),
-					}}
-				/>
-				<Select
-					data={['Both', 'Deaths', 'Confirmed']}
-					onSelect={OnSelectChartType}
-					defaultButtonText='Chart Type'
-					selectDropdownProps={{
-						defaultValueByIndex: 0,
-					}}
-				/>
-			</RowContainer>
-			<TextInput value={JSON.stringify(TimeSeries)} />
-			<CovidChart
-				covidData={TimeSeries}
-				showDeaths={ChartType === 'Both' || ChartType === 'Deaths'}
-				showConfirmed={
-					ChartType === 'Both' || ChartType === 'Confirmed'
-				}
-			/>
-			<WorldSummary />
-			<RowContainer>
-				<LinkToWebButton
-					button={Button}
-					url='https://github.com/mahabub81/covid-19-api'
-				>
-					<Text>Covid 19 Api Github</Text>
-				</LinkToWebButton>
-				<LinkToWebButton
-					button={Button}
-					url='https://github.com/kennarddh/covid-19-expo'
-				>
-					<Text>Github</Text>
-				</LinkToWebButton>
-			</RowContainer>
-			<StatusBar style='auto' />
-		</Container>
+		<SafeAreaView>
+			<ScrollView>
+				<Container>
+					<Title>Covid 19 - Expo</Title>
+					<Button onPress={Fetch}>
+						<Text>Fetch Data</Text>
+					</Button>
+					<RowContainer>
+						<Select
+							data={[
+								'World',
+								...Object.values(Iso2CountryName).filter(
+									value =>
+										Covid19ApiSupportedCountries.includes(
+											CountryNameIso2[value] // eslint-disable-line security/detect-object-injection
+										)
+								),
+							]}
+							onSelect={OnSelectCountry}
+							defaultButtonText='Country'
+							selectDropdownProps={{
+								defaultValueByIndex: 0,
+							}}
+						/>
+						<Select
+							data={
+								!Object.keys(States).includes(
+									SelectedCountryIso2
+								)
+									? []
+									: States[SelectedCountryIso2] // eslint-disable-line security/detect-object-injection
+							}
+							disabled={
+								!Object.keys(States).includes(
+									SelectedCountryIso2
+								)
+							}
+							onSelect={OnSelectState}
+							defaultButtonText='State'
+							selectDropdownProps={{
+								buttonTextAfterSelection: selectedItem =>
+									selectedItem.split('-').join(' '),
+								rowTextForSelection: item =>
+									item.split('-').join(' '),
+							}}
+						/>
+						<Select
+							data={['Both', 'Deaths', 'Confirmed']}
+							onSelect={OnSelectChartType}
+							defaultButtonText='Chart Type'
+							selectDropdownProps={{
+								defaultValueByIndex: 0,
+							}}
+						/>
+					</RowContainer>
+					<TextInput value={JSON.stringify(TimeSeries)} />
+					<CovidChart
+						covidData={TimeSeries}
+						showDeaths={
+							ChartType === 'Both' || ChartType === 'Deaths'
+						}
+						showConfirmed={
+							ChartType === 'Both' || ChartType === 'Confirmed'
+						}
+					/>
+					<WorldSummary />
+					<RowContainer>
+						<LinkToWebButton
+							button={Button}
+							url='https://github.com/mahabub81/covid-19-api'
+						>
+							<Text>Covid 19 Api Github</Text>
+						</LinkToWebButton>
+						<LinkToWebButton
+							button={Button}
+							url='https://github.com/kennarddh/covid-19-expo'
+						>
+							<Text>Github</Text>
+						</LinkToWebButton>
+					</RowContainer>
+					<StatusBar style='auto' />
+				</Container>
+			</ScrollView>
+		</SafeAreaView>
 	)
 }
 
