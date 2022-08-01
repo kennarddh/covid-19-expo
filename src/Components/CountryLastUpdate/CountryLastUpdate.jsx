@@ -26,32 +26,22 @@ const CountryLastUpdate = () => {
 		<Container>
 			<DataTable
 				data={Data}
-				colNames={[
-					'displayName',
-					'population',
-					'lastUpdateAt',
-					'totalDeaths',
-				]}
+				colNames={['displayName', 'population', 'totalDeaths']}
 				colSettings={[
 					{
 						name: 'displayName',
 						type: COL_TYPES.STRING,
-						width: '20%',
+						width: '40%',
 					},
 					{
 						name: 'population',
 						type: COL_TYPES.INT,
-						width: '20%',
-					},
-					{
-						name: 'lastUpdateAt',
-						type: COL_TYPES.STRING,
 						width: '30%',
 					},
 					{
 						name: 'totalDeaths',
 						type: COL_TYPES.INT,
-						width: '20%',
+						width: '30%',
 					},
 				]}
 				noOfPages={Data.length / 10}
