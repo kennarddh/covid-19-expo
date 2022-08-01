@@ -9,7 +9,7 @@ const FormatCountriesNewUpdateData = data => {
 			totalDeaths: country.latest.deaths,
 			provinceState: country.province_state,
 			iso2: country.iso2,
-			country_region: country.country_region,
+			countryRegion: country.country_region,
 		})
 
 		country.states.forEach(state => {
@@ -20,7 +20,7 @@ const FormatCountriesNewUpdateData = data => {
 				totalDeaths: state.latest.deaths,
 				provinceState: state.province_state,
 				iso2: state.iso2,
-				country_region: state.country_region,
+				countryRegion: state.country_region,
 			})
 		})
 	})
