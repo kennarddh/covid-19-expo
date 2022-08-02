@@ -8,6 +8,7 @@ import Button from './Components/Button/Button'
 import LinkToWebButton from './Components/LinkToWebButton/LinkToWebButton'
 import Select from './Components/Select/Select'
 import WorldSummary from './Components/WorldSummary/WorldSummary'
+import CountryLastUpdate from './Components/CountryLastUpdate/CountryLastUpdate'
 
 import { Iso2CountryName, CountryNameIso2 } from './Constants/Iso2CountryName'
 import Covid19ApiSupportedCountries from './Constants/Covid19ApiSupportedCountries'
@@ -168,6 +169,7 @@ const App = () => {
 						}
 					/>
 					<WorldSummary />
+					<CountryLastUpdate />
 					<RowContainer>
 						<LinkToWebButton
 							button={Button}

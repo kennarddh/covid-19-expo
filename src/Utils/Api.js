@@ -37,3 +37,11 @@ export const CountryStateTimeSeries = (countryIso2, state) =>
 			.then(resolve)
 			.catch(reject)
 	)
+
+export const Countries = () =>
+	new Promise((resolve, reject) =>
+		fetch('https://mahabub81.github.io/covid-19-api/api/v1/countries.json')
+			.then(response => response.json())
+			.then(resolve)
+			.catch(reject)
+	)
