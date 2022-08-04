@@ -36,6 +36,7 @@ const CountryLastUpdate = () => {
 	return (
 		<Container>
 			<DataTable
+				doSort={false}
 				data={Data}
 				colNames={['Country / State', 'Population', 'Total Deaths']}
 				colSettings={[
