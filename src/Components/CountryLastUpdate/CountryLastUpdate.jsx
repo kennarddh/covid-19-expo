@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
+// eslint-disable-next-line import/named, import/default
 import DataTable, { COL_TYPES } from 'react-native-datatable-component'
 
 import { Countries } from '../../Utils/Api'
