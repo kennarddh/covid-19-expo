@@ -17,6 +17,10 @@ const Select = ({ data, onSelect, disabled = false, defaultButtonText }) => {
 
 	return (
 		<DropDownPicker
+			disabled={disabled}
+			disabledStyle={{
+				opacity: 0.4,
+			}}
 			placeholder={defaultButtonText}
 			searchable
 			open={IsOpen}
