@@ -20,7 +20,7 @@ import {
 	CountryStateTimeSeries,
 } from './Utils/Api'
 
-import { Container, Title, RowContainer } from './Styles'
+import { Container, Title, RowContainer, ColumnContainer } from './Styles'
 
 const App = () => {
 	const [TimeSeries, SetTimeSeries] = useState({
@@ -110,7 +110,7 @@ const App = () => {
 					<Button onPress={Fetch}>
 						<Text>Fetch Data</Text>
 					</Button>
-					<RowContainer>
+					<ColumnContainer>
 						<Select
 							data={[
 								'World',
@@ -157,7 +157,7 @@ const App = () => {
 								defaultValueByIndex: 0,
 							}}
 						/>
-					</RowContainer>
+					</ColumnContainer>
 					<TextInput value={JSON.stringify(TimeSeries)} />
 					<CovidChart
 						covidData={TimeSeries}
