@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import DropDownPicker from 'react-native-dropdown-picker'
 
@@ -8,6 +8,12 @@ const Select = ({ data, onSelect, disabled = false, defaultButtonText }) => {
 	const [Items, SetItems] = useState(
 		data.map(value => ({ value, label: value }))
 	)
+
+	useEffect(() => {
+		if (!Value) return
+
+		onSelect(Value)
+	}, [Value, onSelect])
 
 	return (
 		<DropDownPicker
