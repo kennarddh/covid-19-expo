@@ -19,6 +19,10 @@ const Select = ({ data, onSelect, disabled = false, defaultButtonText }) => {
 
 	return (
 		<DropDownPicker
+			style={{
+				marginVertical: 10,
+				width: '90%',
+			}}
 			disabled={disabled}
 			disabledStyle={{
 				opacity: 0.4,
