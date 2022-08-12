@@ -33,7 +33,6 @@ const App = () => {
 	const [ChartType, SetChartType] = useState('Both')
 
 	const FetchWorldTimeSeries = useCallback(() => {
-		console.log('FetchWorldTimeSeries')
 		WorldTimeSeries()
 			.then(data => {
 				SetTimeSeries(FormatCovid19TimeSeriesData(data))
@@ -42,7 +41,6 @@ const App = () => {
 	}, [])
 
 	const FetchCountryTimeSeries = useCallback(countryIso2 => {
-		console.log('FetchCountryTimeSeries')
 		CountryTimeSeries(countryIso2)
 			.then(data => {
 				SetTimeSeries(
@@ -55,7 +53,6 @@ const App = () => {
 	}, [])
 
 	const FetchCountryStateTimeSeries = useCallback((countryIso2, state) => {
-		console.log('FetchCountryStateTimeSeries')
 		CountryStateTimeSeries(countryIso2, state)
 			.then(data => {
 				SetTimeSeries(
@@ -69,7 +66,6 @@ const App = () => {
 
 	const OnSelectCountry = useCallback(
 		countryName => {
-			console.log('OnSelectCountry')
 			if (countryName === 'World') {
 				FetchWorldTimeSeries()
 
@@ -91,7 +87,6 @@ const App = () => {
 
 	const OnSelectState = useCallback(
 		state => {
-			console.log('OnSelectState')
 			if (!Object.keys(States).includes(SelectedCountryIso2)) return
 			// eslint-disable-next-line security/detect-object-injection
 			if (!States[SelectedCountryIso2].includes(state)) return
@@ -102,7 +97,6 @@ const App = () => {
 	)
 
 	const OnSelectChartType = useCallback(type => {
-		console.log('OnSelectChartType')
 		SetChartType(type)
 	}, [])
 
@@ -111,11 +105,8 @@ const App = () => {
 	}, [FetchWorldTimeSeries])
 
 	useEffect(() => {
-		console.log('Fetch')
 		Fetch()
 	}, [Fetch])
-
-	useEffect(() => console.log('re render'))
 
 	return (
 		<SafeAreaView>
