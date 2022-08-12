@@ -22,3 +22,11 @@ export const RowContainer = styled.View`
 
 	width: ${Dimensions.get('window').width}px;
 `
+
+export const ColumnContainer = styled.View`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	flex-direction: column;
+`

@@ -1,42 +1,52 @@
-import React from 'react'
-import { Dimensions } from 'react-native'
+import React, { memo, useEffect, useState } from 'react'
 
-import SelectDropdown from 'react-native-select-dropdown'
+import DropDownPicker from 'react-native-dropdown-picker'
 
-const Select = ({
-	data,
-	onSelect,
-	disabled = false,
-	defaultButtonText,
-	selectDropdownProps,
-}) => {
+import IsArraysEqual from '../../Utils/IsArraysEqual'
+
+const Select = ({ data, onSelect, disabled = false, defaultButtonText }) => {
+	const [IsOpen, SetIsOpen] = useState(false)
+	const [Value, SetValue] = useState(null)
+	const [Items, SetItems] = useState([])
+
+	useEffect(() => {
+		if (!Value) return
+
+		onSelect(Value)
+	}, [Value, onSelect])
+
+	useEffect(() => {
+		SetItems(data.map(value => ({ value, label: value })))
+	}, [data])
+
 	return (
-		<SelectDropdown
-			data={data}
-			onSelect={onSelect}
-			buttonTextAfterSelection={selectedItem => selectedItem}
-			rowTextForSelection={item => item}
-			defaultButtonText={defaultButtonText}
-			buttonStyle={{
-				borderRadius: 15,
-				marginHorizontal: 10,
-				width: Dimensions.get('window').width * 0.3,
+		<DropDownPicker
+			style={{
+				marginVertical: 10,
+				width: '90%',
 			}}
-			selectedRowStyle={{
-				backgroundColor: disabled ? '#979797' : '#adadad',
-			}}
-			dropdownStyle={{
-				width: Dimensions.get('window').width * 0.8,
-				left: Dimensions.get('window').width * (1 / 2 - 0.8 / 2),
-			}}
-			searchInputStyle={{
-				width: Dimensions.get('window').width * 0.8,
-			}}
-			search
 			disabled={disabled}
-			{...selectDropdownProps}
+			disabledStyle={{
+				opacity: 0.4,
+			}}
+			placeholder={defaultButtonText}
+			searchable
+			open={IsOpen}
+			setOpen={SetIsOpen}
+			items={Items}
+			setItems={SetItems}
+			setValue={SetValue}
+			value={Value}
+			listMode='MODAL'
 		/>
 	)
 }
 
-export default Select
+export default memo(Select, (prev, next) => {
+	return !(
+		!IsArraysEqual(next.data, prev.data) ||
+		prev.onSelect !== next.onSelect ||
+		prev.disabled !== next.disabled ||
+		prev.defaultButtonText !== next.defaultButtonText
+	)
+})
