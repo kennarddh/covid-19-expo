@@ -102,6 +102,8 @@ const App = () => {
 		Fetch()
 	}, [Fetch])
 
+	useEffect(() => console.log('re render'))
+
 	return (
 		<SafeAreaView>
 			<ScrollView>

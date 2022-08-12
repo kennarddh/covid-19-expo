@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 
 import DropDownPicker from 'react-native-dropdown-picker'
+
+import IsArraysEqual from '../../Utils/IsArraysEqual'
 
 const Select = ({ data, onSelect, disabled = false, defaultButtonText }) => {
 	const [IsOpen, SetIsOpen] = useState(false)
@@ -40,4 +42,11 @@ const Select = ({ data, onSelect, disabled = false, defaultButtonText }) => {
 	)
 }
 
-export default Select
+export default memo(Select, (prev, next) => {
+	return !(
+		!IsArraysEqual(next.data, prev.data) ||
+		prev.onSelect !== next.onSelect ||
+		prev.disabled !== next.disabled ||
+		prev.defaultButtonText !== next.defaultButtonText
+	)
+})
