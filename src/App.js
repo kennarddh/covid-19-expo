@@ -32,15 +32,17 @@ const App = () => {
 	const [SelectedCountryIso2, SetSelectedCountryIso2] = useState('')
 	const [ChartType, SetChartType] = useState('Both')
 
-	const FetchWorldTimeSeries = () => {
+	const FetchWorldTimeSeries = useCallback(() => {
+		console.log('FetchWorldTimeSeries')
 		WorldTimeSeries()
 			.then(data => {
 				SetTimeSeries(FormatCovid19TimeSeriesData(data))
 			})
 			.catch(err => console.log(err))
-	}
+	}, [])
 
-	const FetchCountryTimeSeries = countryIso2 => {
+	const FetchCountryTimeSeries = useCallback(countryIso2 => {
+		console.log('FetchCountryTimeSeries')
 		CountryTimeSeries(countryIso2)
 			.then(data => {
 				SetTimeSeries(
@@ -50,9 +52,10 @@ const App = () => {
 				)
 			})
 			.catch(err => console.log(err))
-	}
+	}, [])
 
-	const FetchCountryStateTimeSeries = (countryIso2, state) => {
+	const FetchCountryStateTimeSeries = useCallback((countryIso2, state) => {
+		console.log('FetchCountryStateTimeSeries')
 		CountryStateTimeSeries(countryIso2, state)
 			.then(data => {
 				SetTimeSeries(
@@ -62,43 +65,53 @@ const App = () => {
 				)
 			})
 			.catch(err => console.log(err))
-	}
+	}, [])
 
-	const OnSelectCountry = countryName => {
-		if (countryName === 'World') {
-			FetchWorldTimeSeries()
+	const OnSelectCountry = useCallback(
+		countryName => {
+			console.log('OnSelectCountry')
+			if (countryName === 'World') {
+				FetchWorldTimeSeries()
 
-			return
-		}
+				return
+			}
 
-		if (!Object.values(Iso2CountryName).includes(countryName)) return
-		if (Covid19ApiSupportedCountries.includes(countryName)) return
+			if (!Object.values(Iso2CountryName).includes(countryName)) return
+			if (Covid19ApiSupportedCountries.includes(countryName)) return
 
-		// eslint-disable-next-line security/detect-object-injection
-		const countryIso2 = CountryNameIso2[countryName]
+			// eslint-disable-next-line security/detect-object-injection
+			const countryIso2 = CountryNameIso2[countryName]
 
-		SetSelectedCountryIso2(countryIso2)
+			SetSelectedCountryIso2(countryIso2)
 
-		FetchCountryTimeSeries(countryIso2)
-	}
+			FetchCountryTimeSeries(countryIso2)
+		},
+		[FetchCountryTimeSeries, FetchWorldTimeSeries]
+	)
 
-	const OnSelectState = state => {
-		if (!Object.keys(States).includes(SelectedCountryIso2)) return
-		// eslint-disable-next-line security/detect-object-injection
-		if (!States[SelectedCountryIso2].includes(state)) return
+	const OnSelectState = useCallback(
+		state => {
+			console.log('OnSelectState')
+			if (!Object.keys(States).includes(SelectedCountryIso2)) return
+			// eslint-disable-next-line security/detect-object-injection
+			if (!States[SelectedCountryIso2].includes(state)) return
 
-		FetchCountryStateTimeSeries(SelectedCountryIso2, state)
-	}
+			FetchCountryStateTimeSeries(SelectedCountryIso2, state)
+		},
+		[FetchCountryStateTimeSeries, SelectedCountryIso2]
+	)
 
-	const OnSelectChartType = type => {
+	const OnSelectChartType = useCallback(type => {
+		console.log('OnSelectChartType')
 		SetChartType(type)
-	}
+	}, [])
 
 	const Fetch = useCallback(() => {
 		FetchWorldTimeSeries()
-	}, [])
+	}, [FetchWorldTimeSeries])
 
 	useEffect(() => {
+		console.log('Fetch')
 		Fetch()
 	}, [Fetch])
 
