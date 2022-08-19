@@ -1,35 +1,35 @@
 {
-  "expo": {
-    "name": "covid-19-expo",
-    "slug": "covid-19-expo",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#d9d9d9"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      },
-      "package": "com.kennarddh.covid19expo"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "entryPoint": "./src/index.js"
-  }
+	"expo": {
+		"name": "covid-19-expo",
+		"slug": "covid-19-expo",
+		"version": "1.0.0",
+		"orientation": "portrait",
+		"icon": "./assets/images/icon.png",
+		"userInterfaceStyle": "light",
+		"splash": {
+			"image": "./assets/images/splash.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#d9d9d9"
+		},
+		"updates": {
+			"url": "https://u.expo.dev/45c77806-c246-46a6-984d-fd27dc969ba7",
+			"fallbackToCacheTimeout": 0
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"supportsTablet": true
+		},
+		"android": {
+			"adaptiveIcon": {
+				"foregroundImage": "./assets/images/adaptive-icon.png",
+				"backgroundColor": "#FFFFFF"
+			},
+			"package": "com.kennarddh.covid19expo"
+		},
+		"web": {
+			"favicon": "./assets/favicon.png"
+		},
+		"entryPoint": "./src/index.js",
+		"runtimeVersion": "2.718"
+	}
 }
