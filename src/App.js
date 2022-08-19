@@ -164,7 +164,6 @@ const App = () => {
 							}}
 						/>
 					</ColumnContainer>
-					<TextInput value={JSON.stringify(TimeSeries)} />
 					<CovidChart
 						covidData={TimeSeries}
 						showDeaths={
