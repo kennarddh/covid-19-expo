@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { Text, TextInput, SafeAreaView, ScrollView } from 'react-native'
+import { Text, SafeAreaView, ScrollView } from 'react-native'
 
 import FormatCovid19TimeSeriesData from './Utils/FormatCovid19TimeSeriesData'
 
