@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import { Text } from 'react-native'
 
@@ -14,6 +14,7 @@ import { Container } from './Styles'
 
 const CountryLastUpdate = () => {
 	const [Data, SetData] = useState([])
+	const [IsDeathsSortedAscending, SetIsDeathsSortedAscending] = useState(true)
 
 	const FetchCountries = () => {
 		Countries()
@@ -37,16 +38,30 @@ const CountryLastUpdate = () => {
 		FetchCountries()
 	}, [])
 
+	const Preview = useMemo(() => {
+		return [...Data].sort((a, b) => {
+			if (IsDeathsSortedAscending) {
+				return b['Total Deaths'] - a['Total Deaths']
+			}
+
+			return a['Total Deaths'] - b['Total Deaths']
+		})
+	}, [Data, IsDeathsSortedAscending])
+
 	return (
 		<Container>
-			<Button style={{ backgroundColor: '#ffffff' }}>
+			<Button
+				onPress={() => SetIsDeathsSortedAscending(prev => !prev)}
+				style={{ backgroundColor: '#ffffff' }}
+			>
 				<Text style={{ textAlign: 'center' }}>
-					Sort Deaths Ascending
+					Sort Deaths{' '}
+					{IsDeathsSortedAscending ? 'Descending' : 'Ascending'}
 				</Text>
 			</Button>
 			<DataTable
 				doSort={false}
-				data={Data}
+				data={Preview}
 				colNames={['Country / State', 'Population', 'Total Deaths']}
 				colSettings={[
 					{
