@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
+import { Text } from 'react-native'
+
 // eslint-disable-next-line import/named, import/default
 import DataTable, { COL_TYPES } from 'react-native-datatable-component'
+
+import Button from '../Button/Button'
 
 import { Countries } from '../../Utils/Api'
 import FormatCountriesNewUpdateData from '../../Utils/FormatCountriesNewUpdateData'
@@ -35,6 +39,11 @@ const CountryLastUpdate = () => {
 
 	return (
 		<Container>
+			<Button style={{ backgroundColor: '#ffffff' }}>
+				<Text style={{ textAlign: 'center' }}>
+					Sort Deaths Ascending
+				</Text>
+			</Button>
 			<DataTable
 				doSort={false}
 				data={Data}
