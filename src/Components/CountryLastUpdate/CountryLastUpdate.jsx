@@ -70,7 +70,8 @@ const CountryLastUpdate = () => {
 				style={{ backgroundColor: '#ffffff' }}
 			>
 				<Text style={{ textAlign: 'center' }}>
-					Sort Deaths {IsSortedAscending ? 'Descending' : 'Ascending'}
+					Sort Total Deaths{' '}
+					{IsSortedAscending ? 'Descending' : 'Ascending'}
 				</Text>
 			</Button>
 			<Button
@@ -87,7 +88,7 @@ const CountryLastUpdate = () => {
 				style={{ backgroundColor: '#ffffff' }}
 			>
 				<Text style={{ textAlign: 'center' }}>
-					Sort Country Name{' '}
+					Sort Country / State'{' '}
 					{IsSortedAscending ? 'Descending' : 'Ascending'}
 				</Text>
 			</Button>
