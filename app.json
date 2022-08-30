@@ -30,6 +30,10 @@
 			"favicon": "./assets/favicon.png"
 		},
 		"entryPoint": "./src/index.js",
-		"runtimeVersion": "2.718"
+		"extra": {
+			"eas":{
+				"projectId": "45c77806-c246-46a6-984d-fd27dc969ba7"
+			}
+		}
 	}
 }
