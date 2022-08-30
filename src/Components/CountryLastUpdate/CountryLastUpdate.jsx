@@ -14,7 +14,8 @@ import { Container } from './Styles'
 
 const CountryLastUpdate = () => {
 	const [Data, SetData] = useState([])
-	const [IsDeathsSortedAscending, SetIsDeathsSortedAscending] = useState(true)
+	const [IsSortedAscending, SetIsSortedAscending] = useState(true)
+	const [SortType, SetSortType] = useState('Country / State')
 
 	const FetchCountries = () => {
 		Countries()
@@ -38,25 +39,56 @@ const CountryLastUpdate = () => {
 		FetchCountries()
 	}, [])
 
+	const ChangeSortType = type => {
+		if (SortType === type) return SetIsSortedAscending(prev => !prev)
+
+		SetSortType(type)
+	}
+
 	const Preview = useMemo(() => {
 		return [...Data].sort((a, b) => {
-			if (IsDeathsSortedAscending) {
-				return b['Total Deaths'] - a['Total Deaths']
+			let result
+
+			if (SortType === 'Country / State') {
+				// eslint-disable-next-line security/detect-object-injection
+				result = b[SortType].localeCompare(a[SortType])
+			} else {
+				// eslint-disable-next-line security/detect-object-injection
+				result = b[SortType] - a[SortType]
 			}
 
-			return a['Total Deaths'] - b['Total Deaths']
+			if (IsSortedAscending) return result * -1
+
+			return result
 		})
-	}, [Data, IsDeathsSortedAscending])
+	}, [Data, IsSortedAscending, SortType])
 
 	return (
 		<Container>
 			<Button
-				onPress={() => SetIsDeathsSortedAscending(prev => !prev)}
+				onPress={() => ChangeSortType('Total Deaths')}
 				style={{ backgroundColor: '#ffffff' }}
 			>
 				<Text style={{ textAlign: 'center' }}>
-					Sort Deaths{' '}
-					{IsDeathsSortedAscending ? 'Descending' : 'Ascending'}
+					Sort Deaths {IsSortedAscending ? 'Descending' : 'Ascending'}
+				</Text>
+			</Button>
+			<Button
+				onPress={() => ChangeSortType('Population')}
+				style={{ backgroundColor: '#ffffff' }}
+			>
+				<Text style={{ textAlign: 'center' }}>
+					Sort Population{' '}
+					{IsSortedAscending ? 'Descending' : 'Ascending'}
+				</Text>
+			</Button>
+			<Button
+				onPress={() => ChangeSortType('Country / State')}
+				style={{ backgroundColor: '#ffffff' }}
+			>
+				<Text style={{ textAlign: 'center' }}>
+					Sort Country Name{' '}
+					{IsSortedAscending ? 'Descending' : 'Ascending'}
 				</Text>
 			</Button>
 			<DataTable
